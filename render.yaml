@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: techworld-academy
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health/
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_URL
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_CREDENTIALS
+        value: /etc/secrets/firebase-service-account.json
+      - key: CONTACT_RATE_LIMIT
+        value: "5"
+      - key: CONTACT_RATE_WINDOW
+        value: "3600"
+      - key: CONTACT_EMAIL
+        value: hello@techworld.academy
+      - key: MAIL_FROM
+        sync: false
+      - key: NEWSLETTER_UNSUBSCRIBE_SECRET
+        sync: false
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
+      - key: CLOUDFLARE_R2_ACCOUNT_ID
+        sync: false
+      - key: CLOUDFLARE_R2_BUCKET
+        sync: false
+      - key: CLOUDFLARE_R2_ACCESS_KEY_ID
+        sync: false
+      - key: CLOUDFLARE_R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: CLOUDFLARE_R2_PUBLIC_URL
+        sync: false

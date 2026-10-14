@@ -1,0 +1,10 @@
+/vendor/
+/node_modules/
+/public/assets/js/compiled/
+.env
+/storage/framework/rate-limits/*
+!/storage/framework/rate-limits/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/keys/*
+!/storage/keys/.gitkeep

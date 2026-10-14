@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public website writes use the server SDK and service-account IAM.
+    // Client SDK access is denied unless a collection receives an explicit policy.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

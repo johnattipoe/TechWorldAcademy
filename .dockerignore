@@ -1,0 +1,17 @@
+.git
+.git/**
+.env
+.env.*
+!.env.example
+vendor
+vendor/**
+node_modules
+node_modules/**
+public/assets/js/compiled
+public/assets/js/compiled/**
+storage/keys
+storage/keys/**
+storage/framework/sessions
+storage/framework/sessions/**
+storage/framework/rate-limits
+storage/framework/rate-limits/**

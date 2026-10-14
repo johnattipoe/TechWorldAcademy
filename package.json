@@ -1,0 +1,15 @@
+{
+  "name": "techworld-academy",
+  "private": true,
+  "scripts": {
+    "build": "npm run build:ts && npm run build:css",
+    "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./public/assets/css/compiled/tailwind.css",
+    "build:ts": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
+  }
+}
