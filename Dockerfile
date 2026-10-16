@@ -24,8 +24,9 @@ RUN a2enconf techworld-public
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/html
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-dev --no-interaction --prefer-dist --no-autoloader
 COPY . .
+RUN composer dump-autoload --no-dev --optimize
 COPY --from=assets /workspace/public/assets/css/compiled/tailwind.css ./public/assets/css/compiled/tailwind.css
 COPY --from=assets /workspace/public/assets/js/compiled/main.js ./public/assets/js/compiled/main.js
 COPY docker/render-entrypoint.sh /usr/local/bin/render-entrypoint
