@@ -1,7 +1,7 @@
 <section class="student-home-hero">
     <div class="container student-home-welcome">
         <div><span class="learning-home-eyebrow">YOUR LEARNING HOME</span><h1>Welcome back, <span><?= e($studentName) ?>.</span></h1><p>Keep building your skills, one focused step at a time.</p></div>
-        <a class="learning-home-primary" href="/#catalogue">Explore courses <span aria-hidden="true">&#8594;</span></a>
+<a class="learning-home-primary" href="/learning/#catalogue">Explore courses <span aria-hidden="true">&#8594;</span></a>
     </div>
 </section>
 
@@ -21,7 +21,7 @@
             <?php $continueId = (string) ($continueCourse['id'] ?? ''); ?>
             <article class="student-continue-card"><div class="student-continue-art <?= e((string) ($continueCourse['color'] ?? 'icon-blue')) ?>" aria-hidden="true"><img src="<?= e(course_illustration_url((string) ($continueCourse['title'] ?? ''))) ?>" alt="" loading="lazy" decoding="async"></div><div class="student-continue-copy"><span class="learning-request-status status-approved">Enrolled</span><h3><?= e((string) ($continueCourse['title'] ?? 'Your course')) ?></h3><p><?= e((string) ($continueCourse['description'] ?? 'Continue your guided learning path.')) ?></p><div class="student-continue-meta"><span><?= e((string) ($continueCourse['level'] ?? 'All levels')) ?></span><span><?= e((string) ($continueCourse['duration'] ?? 'Flexible')) ?></span></div></div><a class="learning-home-primary" href="/student/learn/?course=<?= rawurlencode($continueId) ?>">Continue course <span aria-hidden="true">&#8594;</span></a></article>
         <?php else: ?>
-            <div class="student-home-empty"><div class="student-empty-mark" aria-hidden="true">&#8594;</div><div><h3>Your next lesson starts with a course</h3><p>Explore the catalogue and request a place. Approved courses will appear here so you can jump into learning.</p></div><a class="button button-primary" href="/#catalogue">Browse courses</a></div>
+<div class="student-home-empty"><div class="student-empty-mark" aria-hidden="true">&#8594;</div><div><h3>Your next lesson starts with a course</h3><p>Explore the catalogue and request a place. Approved courses will appear here so you can jump into learning.</p></div><a class="button button-primary" href="/learning/#catalogue">Browse courses</a></div>
         <?php endif; ?>
     </section>
 

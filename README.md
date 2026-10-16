@@ -9,8 +9,8 @@ A PHP 8 application for TechWorld Academy's public course catalogue, training pa
 3. Copy `.env.example` to `.env`. Set `FIREBASE_PROJECT_ID` and `FIREBASE_CREDENTIALS` to a service-account JSON file stored outside `public/`. Grant that account only the Firestore access it needs.
 4. Generate a newsletter signing secret with `php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"` and set it as `NEWSLETTER_UNSUBSCRIBE_SECRET`. Set `APP_URL` to the local origin.
 5. Run `npm run build`, `composer test`, and `composer setup-check`. Use `composer firestore-check` to verify read-only access to the configured Firestore project.
-6. Start the public website with `php -S 127.0.0.1:8000 -t public public/router.php`.
-7. In a second terminal, start the separate learner platform with `php -S 127.0.0.1:8001 -t public public/router.php`. Set `LEARNING_PLATFORM_URL=http://127.0.0.1:8001` and `PUBLIC_WEBSITE_URL=http://127.0.0.1:8000` in `.env` if you want explicit local URLs. Open the website on port 8000; its **Open learning platform** button opens port 8001 in a new tab.
+6. Start the public website and learning platform with one server: `php -S 127.0.0.1:8000 -t public public/router.php`.
+7. Open `http://127.0.0.1:8000/` for the public website. Click **Open learning platform** in its navbar to open the learning catalogue at `http://127.0.0.1:8000/learning/` in a new tab. The `.env.example` uses this same local origin for both site URLs.
 
 The application needs a PHP-capable host; Firebase Hosting static hosting alone cannot run its PHP handlers. Apache deployments can use `public/.htaccess` for clean URLs, including the Resources routes. Keep `.env` and service-account JSON outside the public document root and out of source control.
 

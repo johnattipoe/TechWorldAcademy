@@ -4,8 +4,8 @@ function render_learning_header(string $title, string $description, string $path
     $searchQuery = $_GET['q'] ?? '';
     if (!is_string($searchQuery)) $searchQuery = '';
     $isInstructor = ($_SESSION['learning_user_role'] ?? '') === 'instructor';
-    $learningHomeUrl = $isInstructor ? '/instructor/' : (!empty($_SESSION['learning_user_id']) ? '/student/' : '/');
-    $courseBrowsePath = !empty($_SESSION['learning_user_id']) && !$isInstructor ? '/student/' : '/';
+    $learningHomeUrl = $isInstructor ? '/instructor/' : (!empty($_SESSION['learning_user_id']) ? '/student/' : '/learning/');
+    $courseBrowsePath = !empty($_SESSION['learning_user_id']) && !$isInstructor ? '/student/' : '/learning/';
     $accountName = (string) ($_SESSION['learning_user_name'] ?? 'Learner');
     $accountEmail = (string) ($_SESSION['learning_user_email'] ?? '');
     $accountInitial = function_exists('mb_substr') ? mb_strtoupper(mb_substr(trim($accountName), 0, 1)) : strtoupper(substr(trim($accountName), 0, 1));
@@ -47,14 +47,14 @@ function render_learning_header(string $title, string $description, string $path
 </div>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header learning-site-header">
-    <?php if (empty($_SESSION['learning_user_id'])): ?><div class="learning-audience-bar"><nav class="container" aria-label="Learning for"><a href="/#catalogue">For individuals</a><a href="/business/">For businesses</a><a href="/universities/">For universities</a><a href="/government/">For government</a></nav></div><?php endif; ?>
+        <?php if (empty($_SESSION['learning_user_id'])): ?><div class="learning-audience-bar"><nav class="container" aria-label="Learning for"><a href="/learning/#catalogue">For individuals</a><a href="/business/">For businesses</a><a href="/universities/">For universities</a><a href="/government/">For government</a></nav></div><?php endif; ?>
     <div class="container learning-platform-nav">
         <a class="learning-platform-brand" href="<?= e($learningHomeUrl) ?>" aria-label="<?= e((string) site_setting('siteName', 'TechWorld Academy')) ?> Learning home"><img class="brand-mark" src="/assets/icons/techworld-mark.svg" alt="" aria-hidden="true"><span><?= e((string) site_setting('siteName', 'TechWorld Academy')) ?> <strong>Learning</strong></span></a>
         <nav class="learning-discovery-nav" aria-label="Explore learning">
             <details data-nav-dropdown class="learning-nav-dropdown">
                 <summary>Explore <span aria-hidden="true">&#9662;</span></summary>
                 <div class="learning-nav-dropdown-menu">
-                    <a href="<?= $isInstructor ? '/#catalogue' : (!empty($_SESSION['learning_user_id']) ? '/student/#student-recommend-title' : '/#catalogue') ?>">All courses</a>
+                    <a href="<?= $isInstructor ? '/learning/#catalogue' : (!empty($_SESSION['learning_user_id']) ? '/student/#student-recommend-title' : '/learning/#catalogue') ?>">All courses</a>
                     <a href="<?= e($courseBrowsePath) ?>?q=Web#<?= !empty($_SESSION['learning_user_id']) && !$isInstructor ? 'student-recommend-title' : 'catalogue' ?>">Web development</a>
                     <a href="<?= e($courseBrowsePath) ?>?q=Data#<?= !empty($_SESSION['learning_user_id']) && !$isInstructor ? 'student-recommend-title' : 'catalogue' ?>">Data and analytics</a>
                     <a href="<?= e($courseBrowsePath) ?>?q=AI#<?= !empty($_SESSION['learning_user_id']) && !$isInstructor ? 'student-recommend-title' : 'catalogue' ?>">AI and automation</a>
@@ -62,9 +62,9 @@ function render_learning_header(string $title, string $description, string $path
                     <a href="<?= e($courseBrowsePath) ?>?q=Business#<?= !empty($_SESSION['learning_user_id']) && !$isInstructor ? 'student-recommend-title' : 'catalogue' ?>">Business</a>
                 </div>
             </details>
-            <?php if (empty($_SESSION['learning_user_id'])): ?><a class="learning-degree-link" href="/?q=degree#catalogue">Degrees</a><?php endif; ?>
+            <?php if (empty($_SESSION['learning_user_id'])): ?><a class="learning-degree-link" href="/learning/?q=degree#catalogue">Degrees</a><?php endif; ?>
         </nav>
-        <form class="learning-search" method="get" action="<?= !empty($_SESSION['learning_user_id']) && !$isInstructor ? '/student/' : '/#catalogue' ?>" role="search">
+        <form class="learning-search" method="get" action="<?= !empty($_SESSION['learning_user_id']) && !$isInstructor ? '/student/' : '/learning/#catalogue' ?>" role="search">
             <label class="visually-hidden" for="learning-search-input">Search courses</label>
             <input id="learning-search-input" type="search" name="q" value="<?= e($searchQuery) ?>" placeholder="What do you want to learn?">
             <button type="submit" aria-label="Search courses"><span aria-hidden="true">&#9906;</span></button>

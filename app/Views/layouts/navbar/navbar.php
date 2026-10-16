@@ -22,7 +22,7 @@ $communityItems = [
     '/careers/' => 'Careers', '/partners/' => 'Partner with us', '/help/' => 'Help center',
     '/pricing/' => 'Pricing', '/locations/' => 'Locations', '/accessibility/' => 'Accessibility', '/status/' => 'Service status',
 ];
-$learningPortalHref = learning_platform_url('/');
+$learningPortalHref = learning_platform_url('/learning/');
 $learningPortalOrigin = rtrim(learning_platform_url('/'), '/');
 $academyItems = [
     '/about/' => locale_text('About TechWorld', 'À propos de TechWorld', 'Acerca de TechWorld'),

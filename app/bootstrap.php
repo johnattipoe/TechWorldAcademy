@@ -218,7 +218,7 @@ function page_end(): void
 function learning_platform_url(string $path = '/'): string
 {
     $configured = trim((string) env_value('LEARNING_PLATFORM_URL', ''));
-    if ($configured === '' && env_value('APP_ENV', 'local') !== 'production') $configured = 'http://127.0.0.1:8001';
+    if ($configured === '' && env_value('APP_ENV', 'local') !== 'production') $configured = (string) env_value('APP_URL', 'http://127.0.0.1:8000');
     if ($configured === '') return $path;
     $parts = parse_url($configured);
     if (!is_array($parts) || !in_array($parts['scheme'] ?? '', ['http', 'https'], true) || empty($parts['host']) || isset($parts['user'], $parts['pass'])) return $path;
@@ -244,7 +244,7 @@ function public_website_url(string $path = '/'): string
 function is_learning_platform_host(): bool
 {
     $configured = trim((string) env_value('LEARNING_PLATFORM_URL', ''));
-    if ($configured === '' && env_value('APP_ENV', 'local') !== 'production') $configured = 'http://127.0.0.1:8001';
+    if ($configured === '' && env_value('APP_ENV', 'local') !== 'production') $configured = (string) env_value('APP_URL', 'http://127.0.0.1:8000');
     $platform = parse_url($configured);
     if (!is_array($platform) || empty($platform['host'])) return false;
     $current = parse_url('http://' . (string) ($_SERVER['HTTP_HOST'] ?? ''));
@@ -254,9 +254,8 @@ function is_learning_platform_host(): bool
 
 function is_learning_portal_page(?string $path = null): bool
 {
-    if (is_learning_platform_host()) return true;
     $path = $path ?? (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
-    return preg_match('#^/(?:login|register|logout|forgot-password|reset-password|student|instructor|business|universities|government)(?:/|$)#', $path) === 1;
+    return preg_match('#^/(?:learning|learn|login|register|logout|forgot-password|reset-password|student|instructor|business|universities|government)(?:/|$)#', $path) === 1;
 }
 
 function firestore_database()

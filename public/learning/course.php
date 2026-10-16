@@ -23,7 +23,7 @@ if ($courseId !== '' && strlen($courseId) <= 1500) {
 if ($course === null) {
     http_response_code(404);
     page_start('Course not found', 'This course is not available in the current catalogue.');
-    echo '<section class="learning-course-not-found container"><span class="learning-home-eyebrow">COURSE CATALOGUE</span><h1>We couldn’t find that course.</h1><p>It may have moved or is no longer available.</p><a class="learning-home-primary" href="/#catalogue">Browse available courses <span aria-hidden="true">&#8594;</span></a></section>';
+echo '<section class="learning-course-not-found container"><span class="learning-home-eyebrow">COURSE CATALOGUE</span><h1>We couldn’t find that course.</h1><p>It may have moved or is no longer available.</p><a class="learning-home-primary" href="/learning/#catalogue">Browse available courses <span aria-hidden="true">&#8594;</span></a></section>';
     page_end();
     exit;
 }
@@ -48,7 +48,7 @@ foreach (['database' => 'SQL', 'data' => 'DATA', 'cyber' => 'SEC', 'cloud' => 'C
 
 page_start($title, $description);
 ?>
-<nav class="learning-course-breadcrumb container" aria-label="Breadcrumb"><a href="/#catalogue">Courses</a><span aria-hidden="true">/</span><span aria-current="page"><?= e($title) ?></span></nav>
+<nav class="learning-course-breadcrumb container" aria-label="Breadcrumb"><a href="/learning/#catalogue">Courses</a><span aria-hidden="true">/</span><span aria-current="page"><?= e($title) ?></span></nav>
 <section class="learning-course-detail-hero">
     <div class="container learning-course-detail-grid">
         <div class="learning-course-detail-copy">
@@ -75,5 +75,5 @@ page_start($title, $description);
     </div>
     <aside class="learning-course-steps"><h2>How course access works</h2><ol><li><span>1</span><div><strong>Create your learner account</strong><p>Set up a secure profile to keep your requests and learning progress together.</p></div></li><li><span>2</span><div><strong>Request a place</strong><p>Our team reviews course requests and updates the status in your account.</p></div></li><li><span>3</span><div><strong>Learn and track progress</strong><p>Approved learners can access published lessons and course activities.</p></div></li></ol></aside>
 </section>
-<section class="learning-course-more"><div class="container"><h2>Explore more courses</h2><p>Compare topics and choose another skill to explore.</p><a class="learning-home-primary" href="/#catalogue">Back to all courses <span aria-hidden="true">&#8594;</span></a></div></section>
+<section class="learning-course-more"><div class="container"><h2>Explore more courses</h2><p>Compare topics and choose another skill to explore.</p><a class="learning-home-primary" href="/learning/#catalogue">Back to all courses <span aria-hidden="true">&#8594;</span></a></div></section>
 <?php page_end(); ?>

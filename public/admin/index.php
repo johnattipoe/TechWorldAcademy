@@ -292,7 +292,7 @@ staff_page_start($view === 'login' ? 'Staff sign in' : ($tabTitles[$tab] ?? 'Aca
         <a href="/admin/?tab=settings"><span class="admin-control-icon">&#9881;</span><strong>Website settings</strong><p>Update site identity, contact details and public notices.</p><span>Open settings &#8594;</span></a>
         <a href="/admin/?tab=pages"><span class="admin-control-icon">&#9998;</span><strong>Page introductions</strong><p>Edit headings and introductory copy across the website and learning audience pages.</p><span>Edit page copy &#8594;</span></a>
       </div>
-      <div class="admin-control-footer"><span>Public site</span><a href="<?= e(public_website_url('/')) ?>" target="_blank" rel="noopener noreferrer">Preview website &#8599;</a><span>Learning platform</span><a href="<?= e(learning_platform_url('/')) ?>" target="_blank" rel="noopener noreferrer">Preview learning catalogue &#8599;</a></div>
+<div class="admin-control-footer"><span>Public site</span><a href="<?= e(public_website_url('/')) ?>" target="_blank" rel="noopener noreferrer">Preview website &#8599;</a><span>Learning platform</span><a href="<?= e(learning_platform_url('/learning/')) ?>" target="_blank" rel="noopener noreferrer">Preview learning catalogue &#8599;</a></div>
       <?php
         $today = new DateTimeImmutable('today');
         $weekDays = [];

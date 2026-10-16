@@ -4,6 +4,7 @@ declare(strict_types=1);
 return [
     '/health/' => 'public/system/health/index.php',
     '/' => 'public/index.php',
+    '/learning/' => 'public/learning/index.php',
     '/courses/' => 'public/courses/courses.php',
     '/learn/course/' => 'public/learning/course.php',
     '/business/' => 'public/learning/audience/business.php',
