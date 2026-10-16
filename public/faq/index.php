@@ -1,1 +1,1 @@
-<?php require dirname(__DIR__) . '/faq.php';
+<?php require dirname(__DIR__) . '/pages/faq.php';

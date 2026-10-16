@@ -357,6 +357,7 @@
     .mobile-nav,
     .site-footer,
     .back-to-top,
+    .chat-assistant,
     .page-loader,
     .skip-link,
     .search-toggle,
@@ -410,7 +411,7 @@
 }
 
 @media (forced-colors: active) {
-    :where(.button, .menu-toggle, .search-toggle, .back-to-top, .nav-dropdown > summary) {
+    :where(.button, .menu-toggle, .search-toggle, .back-to-top, .chat-launcher, .nav-dropdown > summary) {
         border: 1px solid ButtonText;
     }
 
@@ -460,4 +461,14 @@
     .reading-progress span {
         will-change: auto;
     }
+}
+
+/* Hide the page scrollbar without disabling scrolling. */
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
 }

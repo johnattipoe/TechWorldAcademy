@@ -231,6 +231,101 @@ function initBackToTop(): void {
   button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
+function initChatAssistant(): void {
+  const panel = getElement<HTMLElement>('chat-panel');
+  const toggle = getElement<HTMLButtonElement>('chat-toggle');
+  const close = document.querySelector<HTMLButtonElement>('[data-chat-close]');
+  const form = getElement<HTMLFormElement>('chat-form');
+  const input = getElement<HTMLInputElement>('chat-input');
+  const messages = getElement<HTMLElement>('chat-messages');
+  if (!panel || !toggle || !close || !form || !input || !messages) return;
+
+  const addMessage = (text: string, sender: 'assistant' | 'user'): void => {
+    const message = document.createElement('p');
+    message.className = `chat-message chat-message-${sender}`;
+    message.textContent = text;
+    messages.append(message);
+    messages.scrollTop = messages.scrollHeight;
+  };
+
+  const addLinks = (links: Array<{ label: string; href: string }>): void => {
+    const group = document.createElement('div');
+    group.className = 'chat-message-links';
+    links.forEach(({ label, href }) => {
+      const link = document.createElement('a');
+      link.href = href;
+      link.textContent = label;
+      group.append(link);
+    });
+    messages.append(group);
+    messages.scrollTop = messages.scrollHeight;
+  };
+
+  const answer = (question: string): void => {
+    const query = question.toLocaleLowerCase();
+    if (['fee', 'fees', 'price', 'cost', 'duration', 'schedule', 'certificate', 'enrol', 'enroll', 'prerequisite', 'level'].some((word) => query.includes(word))) {
+      addMessage(uiText('Course schedules, fees and requirements can vary. Open the course catalogue and ask us about a specific option for current details.', 'Les horaires, tarifs et prérequis varient selon les cours. Consultez le catalogue et contactez-nous pour obtenir les informations actuelles.', 'Los horarios, tarifas y requisitos varían según el curso. Consulta el catálogo y pregúntanos por una opción concreta.'), 'assistant');
+      addLinks([{ label: uiText('Browse courses', 'Voir les cours', 'Ver cursos'), href: '/courses/' }, { label: uiText('Ask a question', 'Poser une question', 'Hacer una pregunta'), href: '/faq/' }]);
+      return;
+    }
+    if (['team', 'organisation', 'organization', 'company', 'corporate', 'group', 'workshop'].some((word) => query.includes(word))) {
+      addMessage(uiText('Team learning can be discussed around your goals, starting level and schedule. The Academy will confirm possible scope and fees with you.', 'La formation en équipe peut être étudiée selon vos objectifs, votre niveau et votre calendrier. L’Académie confirmera le périmètre et les tarifs possibles.', 'Podemos hablar de formación para equipos según sus objetivos, nivel y calendario. La Academia confirmará el alcance y las tarifas posibles.'), 'assistant');
+      addLinks([{ label: uiText('Team training', 'Formation en équipe', 'Formación para equipos'), href: '/services/' }, { label: uiText('Contact us', 'Nous contacter', 'Contactar'), href: '/contact/?course=Team%20training' }]);
+      return;
+    }
+    if (['resource', 'guide', 'glossary', 'project', 'practice', 'study'].some((word) => query.includes(word))) {
+      addMessage(uiText('The resource library has study guides, plain-language technology terms and practice project ideas.', 'La bibliothèque propose des guides d’étude, des définitions simples et des idées de projets pratiques.', 'La biblioteca incluye guías de estudio, términos tecnológicos sencillos e ideas de proyectos prácticos.'), 'assistant');
+      addLinks([{ label: uiText('Open resources', 'Voir les ressources', 'Ver recursos'), href: '/resources/' }, { label: uiText('Project ideas', 'Idées de projets', 'Ideas de proyectos'), href: '/resources/projects/' }]);
+      return;
+    }
+    if (['course', 'class', 'learn', 'python', 'data', 'web', 'cloud', 'security', 'coding', 'programming', 'artificial intelligence'].some((word) => query.includes(word))) {
+      addMessage(uiText('The catalogue covers web development, data analytics, AI, cybersecurity, cloud computing and Python. Course levels and durations are listed on each card.', 'Le catalogue couvre le développement web, les données, l’IA, la cybersécurité, le cloud et Python. Les niveaux et durées sont indiqués sur chaque cours.', 'El catálogo incluye desarrollo web, análisis de datos, IA, ciberseguridad, nube y Python. Cada curso muestra su nivel y duración.'), 'assistant');
+      addLinks([{ label: uiText('Browse the catalogue', 'Voir le catalogue', 'Ver el catálogo'), href: '/courses/' }, { label: uiText('Technology training', 'Formation technologique', 'Formación tecnológica'), href: '/training/' }]);
+      return;
+    }
+    if (['contact', 'email', 'human', 'person', 'speak', 'help me'].some((word) => query.includes(word))) {
+      addMessage(uiText('You can send a message to the Academy or review the frequently asked questions. This chat does not forward messages to staff.', 'Vous pouvez écrire à l’Académie ou consulter les questions fréquentes. Ce chat ne transmet pas les messages à l’équipe.', 'Puedes escribir a la Academia o consultar las preguntas frecuentes. Este chat no envía mensajes al equipo.'), 'assistant');
+      addLinks([{ label: uiText('Contact the Academy', 'Contacter l’Académie', 'Contactar con la Academia'), href: '/contact/' }, { label: uiText('Read the FAQ', 'Lire la FAQ', 'Leer las preguntas frecuentes'), href: '/faq/' }]);
+      return;
+    }
+
+    addMessage(uiText('I can point you to course options, team training or learning resources. For a question about your situation, please contact the Academy directly.', 'Je peux vous orienter vers les cours, la formation en équipe ou les ressources. Pour une question personnelle, contactez directement l’Académie.', 'Puedo orientarte a cursos, formación para equipos o recursos. Para una consulta personal, contacta directamente con la Academia.'), 'assistant');
+    addLinks([{ label: uiText('Courses', 'Cours', 'Cursos'), href: '/courses/' }, { label: uiText('FAQ', 'FAQ', 'Preguntas frecuentes'), href: '/faq/' }, { label: uiText('Contact', 'Contact', 'Contacto'), href: '/contact/' }]);
+  };
+
+  const submitQuestion = (question: string): void => {
+    const cleanQuestion = question.trim().slice(0, 300);
+    if (!cleanQuestion) return;
+    addMessage(cleanQuestion, 'user');
+    answer(cleanQuestion);
+  };
+
+  const setOpen = (open: boolean, restoreFocus = false): void => {
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open
+      ? uiText('Close TechWorld chat', 'Fermer le chat TechWorld', 'Cerrar chat de TechWorld')
+      : uiText('Open TechWorld chat', 'Ouvrir le chat TechWorld', 'Abrir chat de TechWorld'));
+    if (open) window.setTimeout(() => input.focus(), 0);
+    else if (restoreFocus) toggle.focus();
+  };
+
+  toggle.addEventListener('click', () => setOpen(panel.hidden === true));
+  close.addEventListener('click', () => setOpen(false, true));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !panel.hidden) setOpen(false, true);
+  });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    submitQuestion(input.value);
+    input.value = '';
+    input.focus();
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-chat-prompt]').forEach((button) => {
+    button.addEventListener('click', () => submitQuestion(button.dataset.chatPrompt || ''));
+  });
+}
+
 function initConfirmForms(): void {
   document.querySelectorAll<HTMLFormElement>('form[data-confirm]').forEach((form) => {
     form.addEventListener('submit', (event) => {
@@ -446,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSiteSearch();
   initCourseFinder();
   initBackToTop();
+  initChatAssistant();
   initConfirmForms();
   initContactForm();
   initNewsletterForm();

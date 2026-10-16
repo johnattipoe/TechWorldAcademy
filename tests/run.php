@@ -8,6 +8,7 @@ $testFiles = [
     __DIR__ . '/CourseTest/CourseTest.php',
     __DIR__ . '/SecurityTest/SecurityTest.php',
     __DIR__ . '/RateLimitTest/RateLimitTest.php',
+    __DIR__ . '/LearningAccessTest/LearningAccessTest.php',
 ];
 $passed = 0;
 $failed = 0;

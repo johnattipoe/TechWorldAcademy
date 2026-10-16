@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require_once dirname(__DIR__) . '/app/bootstrap.php';
+require_once dirname(__DIR__, 3) . '/app/bootstrap.php';
 header('Content-Type: application/xml; charset=utf-8');
 $base = rtrim((string) env_value('APP_URL', 'https://example.com'), '/');
 $paths = ['/', '/courses/', '/about/', '/training/', '/services/', '/resources/', '/resources/guides/', '/resources/glossary/', '/resources/projects/', '/faq/', '/contact/', '/privacy/', '/terms/'];

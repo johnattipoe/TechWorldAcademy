@@ -81,10 +81,41 @@ final class FirestoreService
         return $documents;
     }
 
+    /** List documents whose selected field exactly matches a string value. */
+    public function listByField(string $collection, string $field, string $value, int $limit = 100): array
+    {
+        if (!preg_match('/^[A-Za-z][A-Za-z0-9_.]{0,99}$/', $field)) throw new InvalidArgumentException('Invalid filter field.');
+        $limit = max(1, min(100, $limit));
+        $result = $this->request('POST', $this->apiRoot() . ':runQuery', [
+            'structuredQuery' => [
+                'from' => [['collectionId' => $this->collectionName($collection)]],
+                'where' => ['fieldFilter' => [
+                    'field' => ['fieldPath' => $field],
+                    'op' => 'EQUAL',
+                    'value' => ['stringValue' => $value],
+                ]],
+                'limit' => $limit,
+            ],
+        ]);
+        $documents = [];
+        foreach ($result as $row) {
+            if (!is_array($row) || !isset($row['document'])) continue;
+            $snapshot = $row['document'];
+            $id = basename((string) ($snapshot['name'] ?? ''));
+            if ($id !== '') $documents[] = ['id' => $id] + FirestoreValueCodec::decodeFields((array) ($snapshot['fields'] ?? []));
+        }
+        return $documents;
+    }
+
     private function collectionPath(string $collection): string
     {
+        return $this->apiRoot() . '/' . rawurlencode($this->collectionName($collection));
+    }
+
+    private function collectionName(string $collection): string
+    {
         if (!preg_match('/^[A-Za-z][A-Za-z0-9_-]{0,99}$/', $collection)) throw new InvalidArgumentException('Invalid Firestore collection name.');
-        return $this->apiRoot() . '/' . rawurlencode($collection);
+        return $collection;
     }
 
     private function documentPath(string $collection, string $id): string

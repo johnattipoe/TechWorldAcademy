@@ -1,26 +1,8 @@
 Options -Indexes
-DirectoryIndex index.php
 RewriteEngine On
-RewriteRule ^courses/?$ /courses/courses.php [L]
-RewriteRule ^about/?$ /about/about.php [L]
-RewriteRule ^contact/?$ /contact/contact.php [L]
-RewriteRule ^training/?$ /training/training.php [L]
-RewriteRule ^services/?$ /services/services.php [L]
-RewriteRule ^resources(?:/(?:guides|glossary|projects))?/?$ /resources/resources.php [QSA,L]
-RewriteRule ^newsletter/unsubscribe/?$ /newsletter/unsubscribe.php [QSA,L]
-RewriteRule ^faq/?$ /faq.php [L]
-RewriteRule ^(privacy|terms)/?$ /$1/index.php [L]
-RewriteRule ^robots\.txt$ /robots.php [L]
-RewriteRule ^sitemap\.xml$ /sitemap.php [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ /router.php [QSA,L]
-<IfModule mod_headers.c>
-  Header always set X-Content-Type-Options "nosniff"
-  Header always set X-Frame-Options "DENY"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-</IfModule>
-<FilesMatch "^\.htaccess$">
-  Require all denied
-</FilesMatch>
+
+# Serve real assets and explicit public scripts directly. Send clean application
+# routes, including paths without a matching directory index, through the router.
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+RewriteRule ^ router.php [QSA,L]

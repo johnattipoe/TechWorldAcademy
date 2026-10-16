@@ -49,7 +49,9 @@ foreach (['sessions', 'rate-limits'] as $directory) {
 }
 
 $adminHash = (string) env_value('ADMIN_PASSWORD_HASH', '');
+$adminEmail = (string) env_value('ADMIN_EMAIL', '');
 $warn($adminHash === '' || password_get_info($adminHash)['algo'] !== null, 'ADMIN_PASSWORD_HASH is a password_hash() result when admin access is enabled.');
+$warn($adminHash === '' || filter_var($adminEmail, FILTER_VALIDATE_EMAIL) !== false, 'ADMIN_EMAIL is a valid email address when admin access is enabled.');
 $unsubscribeSecret = (string) env_value('NEWSLETTER_UNSUBSCRIBE_SECRET', '');
 $warn(!$production || strlen($unsubscribeSecret) >= 32, 'Production newsletter unsubscribe secret has at least 32 characters.');
 $mailFrom = (string) env_value('MAIL_FROM', '');

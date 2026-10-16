@@ -2,9 +2,21 @@
 function render_admin_sidebar(string $tab): void
 {
 $adminLinks = [
-    'inquiries' => ['/admin/', 'Enquiries'],
+    'overview' => ['/admin/', 'Control center'],
+    'inquiries' => ['/admin/?tab=inquiries', 'Course enquiries'],
+    'users' => ['/admin/?tab=users', 'Accounts & instructors'],
+    'instructors' => ['/admin/?tab=instructors', 'Instructor oversight'],
     'courses' => ['/admin/?tab=courses', 'Course catalogue'],
+    'pages' => ['/admin/?tab=pages', 'Page introductions'],
+    'enrollments' => ['/admin/?tab=enrollments', 'Course requests'],
+    'lessons' => ['/admin/?tab=lessons', 'Course lessons'],
+    'quizzes' => ['/admin/?tab=quizzes', 'Quizzes'],
+    'assignments' => ['/admin/?tab=assignments', 'Assignments'],
+    'submissions' => ['/admin/?tab=submissions', 'Submissions'],
+    'activity' => ['/admin/?tab=activity', 'Learner activity'],
+    'certificates' => ['/admin/?tab=certificates', 'Certificates'],
     'subscribers' => ['/admin/?tab=subscribers', 'Newsletter subscribers'],
+    'settings' => ['/admin/?tab=settings', 'Website settings'],
 ];
 ?>
 <div class="admin-sidebar-title"><span class="eyebrow">Workspace</span><strong>Manage academy</strong></div>

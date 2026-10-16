@@ -4,6 +4,13 @@
     const header = document.querySelector('.site-header');
     if (!header) return;
 
+    document.querySelectorAll('[data-learning-promo-close]').forEach((button) => {
+        button.addEventListener('click', () => {
+            const promo = button.closest('[data-learning-promo]');
+            if (promo) promo.hidden = true;
+        });
+    });
+
     const progress = document.createElement('div');
     progress.className = 'reading-progress';
     progress.setAttribute('aria-hidden', 'true');
@@ -29,4 +36,33 @@
     window.addEventListener('scroll', queueUpdate, { passive: true });
     window.addEventListener('resize', queueUpdate, { passive: true });
     window.addEventListener('pageshow', queueUpdate);
+
+    const glossarySearch = document.querySelector('#glossary-search-input');
+    const glossaryTerms = Array.from(document.querySelectorAll('.resource-glossary > div'));
+    const glossaryCount = document.querySelector('#glossary-result-count');
+    const glossaryEmpty = document.querySelector('#glossary-empty');
+    if (glossarySearch && glossaryTerms.length) {
+        const updateGlossary = () => {
+            const query = glossarySearch.value.trim().toLocaleLowerCase();
+            let visibleCount = 0;
+            glossaryTerms.forEach((term) => {
+                const matches = term.textContent.toLocaleLowerCase().includes(query);
+                term.hidden = !matches;
+                if (matches) visibleCount += 1;
+            });
+            if (glossaryCount) {
+                glossaryCount.textContent = query
+                    ? `${visibleCount} ${visibleCount === 1 ? 'term' : 'terms'} found`
+                    : `Showing all ${visibleCount} terms`;
+            }
+            if (glossaryEmpty) glossaryEmpty.hidden = visibleCount !== 0;
+        };
+        glossarySearch.addEventListener('input', updateGlossary);
+        updateGlossary();
+    }
+
+    document.querySelectorAll('[data-print-certificate]').forEach((button) => {
+        button.addEventListener('click', () => window.print());
+    });
+
 })();

@@ -21,10 +21,14 @@ services:
       - key: CONTACT_RATE_WINDOW
         value: "3600"
       - key: CONTACT_EMAIL
-        value: hello@techworld.academy
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
       - key: MAIL_FROM
         sync: false
       - key: NEWSLETTER_UNSUBSCRIBE_SECRET
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
         sync: false
       - key: ADMIN_PASSWORD_HASH
         sync: false

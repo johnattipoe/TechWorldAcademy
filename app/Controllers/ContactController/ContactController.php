@@ -34,8 +34,8 @@ final class ContactController
             ContactMessage::create(new FirestoreService(FirebaseService::firestore()), $data);
             $notification = "A new TechWorld Academy inquiry was received.\n\nName: {$data['name']}\nEmail: {$data['email']}\n\nMessage:\n{$data['message']}";
             try {
-                $mailSent = (new EmailService())->send((string) env_value('CONTACT_EMAIL', 'hello@techworld.academy'), 'New academy contact inquiry', $notification, $data['email']);
-                if (!$mailSent && env_value('MAIL_FROM')) error_log('Contact inquiry saved but email notification was not sent.');
+                $mailSent = (new EmailService())->send((string) site_setting('contactEmail', env_value('CONTACT_EMAIL', 'hello@techworld.academy')), 'New academy contact inquiry', $notification, $data['email']);
+                if (!$mailSent) error_log('Contact inquiry was saved, but its email notification was not sent. Check CONTACT_EMAIL, MAIL_FROM, and RESEND_API_KEY or the host mail transport.');
             } catch (Throwable $mailError) {
                 error_log('Contact inquiry saved but email notification failed: ' . $mailError->getMessage());
             }

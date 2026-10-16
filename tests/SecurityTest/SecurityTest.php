@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__, 2) . '/app/bootstrap.php';
 require_once dirname(__DIR__, 2) . '/app/Services/NewsletterUnsubscribeService/NewsletterUnsubscribeService.php';
-require_once dirname(__DIR__, 2) . '/app/Services/FirestoreService/FirestoreValueCodec.php';
+require_once dirname(__DIR__, 2) . '/app/Services/FirestoreService/FirestoreValueCodec/index.php';
 require_once dirname(__DIR__, 2) . '/app/Validators/ContactValidator/ContactValidator.php';
 
 return [

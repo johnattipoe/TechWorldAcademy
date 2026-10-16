@@ -16,6 +16,14 @@ $resourceItems = [
     '/resources/glossary/' => locale_text('Tech glossary', 'Glossaire technique', 'Glosario tecnológico'),
     '/resources/projects/' => locale_text('Practice projects', 'Projets pratiques', 'Proyectos prácticos'),
 ];
+$communityItems = [
+    '/events/' => 'Events & workshops', '/webinars/' => 'Webinars', '/community/' => 'Community',
+    '/success-stories/' => 'Learner stories', '/scholarships/' => 'Scholarships',
+    '/careers/' => 'Careers', '/partners/' => 'Partner with us', '/help/' => 'Help center',
+    '/pricing/' => 'Pricing', '/locations/' => 'Locations', '/accessibility/' => 'Accessibility', '/status/' => 'Service status',
+];
+$learningPortalHref = learning_platform_url('/');
+$learningPortalOrigin = rtrim(learning_platform_url('/'), '/');
 $academyItems = [
     '/about/' => locale_text('About TechWorld', 'À propos de TechWorld', 'Acerca de TechWorld'),
     '/faq/' => locale_text('Frequently asked questions', 'Questions fréquentes', 'Preguntas frecuentes'),
@@ -23,10 +31,19 @@ $academyItems = [
     '/privacy/' => locale_text('Privacy policy', 'Politique de confidentialité', 'Política de privacidad'),
     '/terms/' => locale_text('Terms of use', 'Conditions d’utilisation', 'Términos de uso'),
 ];
+$academyItems[$learningPortalHref] = locale_text('Online learning platform', 'Plateforme d’apprentissage', 'Plataforma de aprendizaje');
+if (!empty($_SESSION['learning_user_id'])) {
+    $academyItems[learning_platform_url('/student/my-courses/')] = locale_text('My courses', 'Mes cours', 'Mis cursos');
+    $academyItems[learning_platform_url('/student/progress/')] = locale_text('My progress', 'Ma progression', 'Mi progreso');
+    $academyItems[learning_platform_url('/student/assessments/')] = locale_text('My assessments', 'Mes évaluations', 'Mis evaluaciones');
+    $academyItems[learning_platform_url('/student/assignments/')] = locale_text('My assignments', 'Mes devoirs', 'Mis tareas');
+    $academyItems[learning_platform_url('/student/certificates/')] = locale_text('My certificates', 'Mes certificats', 'Mis certificados');
+}
 $learnIsCurrent = array_key_exists($path, $learnItems);
 $servicesIsCurrent = $path === '/services/';
-$resourceIsCurrent = array_key_exists($path, $resourceItems);
-$academyIsCurrent = array_key_exists($path, $academyItems);
+$resourceIsCurrent = array_key_exists($path, $resourceItems) || str_starts_with($path, '/resources/') || str_starts_with($path, '/blog/');
+$communityIsCurrent = array_key_exists($path, $communityItems) || str_starts_with($path, '/events/') || str_starts_with($path, '/webinars/') || str_starts_with($path, '/careers/') || str_starts_with($path, '/partners/') || str_starts_with($path, '/scholarships/') || str_starts_with($path, '/community/') || str_starts_with($path, '/success-stories/') || str_starts_with($path, '/help/') || str_starts_with($path, '/pricing/') || str_starts_with($path, '/locations/') || str_starts_with($path, '/accessibility/') || str_starts_with($path, '/status/');
+$academyIsCurrent = array_key_exists($path, $academyItems) || $path === '/register/';
 $languageQuery = $_GET;
 unset($languageQuery['lang']);
 $languageAction = $path . ($languageQuery ? '?' . http_build_query($languageQuery) : '');
@@ -64,15 +81,20 @@ $languageAction = $path . ($languageQuery ? '?' . http_build_query($languageQuer
         </div>
     </details>
     <details class="nav-dropdown" data-nav-dropdown>
+        <summary<?= $communityIsCurrent ? ' aria-current="page"' : '' ?>>Explore <span aria-hidden="true">&#8964;</span></summary>
+        <div class="nav-dropdown-menu"><span class="nav-dropdown-label">Events, community &amp; opportunities</span><?php foreach ($communityItems as $href => $label): ?><a href="<?= e($href) ?>"<?= $path === $href ? ' aria-current="page"' : '' ?>><?= e($label) ?></a><?php endforeach; ?></div>
+    </details>
+    <details class="nav-dropdown" data-nav-dropdown>
         <summary<?= $academyIsCurrent ? ' aria-current="page"' : '' ?>><?= e(locale_text('Academy', 'Académie', 'Academia')) ?> <span aria-hidden="true">&#8964;</span></summary>
         <div class="nav-dropdown-menu">
             <span class="nav-dropdown-label"><?= e(locale_text('About and support', 'À propos et assistance', 'Información y ayuda')) ?></span>
             <?php foreach ($academyItems as $href => $label): ?>
-                <a href="<?= e($href) ?>"<?= $path === $href ? ' aria-current="page"' : '' ?>><?= e($label) ?></a>
+                <?php $portalLink = $learningPortalOrigin !== '' && str_starts_with($href, $learningPortalOrigin); ?><a href="<?= e($href) ?>"<?= $portalLink ? ' target="_blank" rel="noopener noreferrer"' : '' ?><?= $path === $href ? ' aria-current="page"' : '' ?>><?= e($label) ?></a>
             <?php endforeach; ?>
         </div>
     </details>
     <button class="nav-finder-open" type="button" data-open-course-finder><?= e(locale_text('Find a course', 'Trouver un cours', 'Buscar un curso')) ?> <span aria-hidden="true">&#8594;</span></button>
+    <a class="nav-cta nav-learning-cta" href="<?= e($learningPortalHref) ?>" target="_blank" rel="noopener noreferrer"><?= e(locale_text('Open learning platform', 'Ouvrir la plateforme', 'Abrir plataforma de aprendizaje')) ?> <span aria-hidden="true">&#8599;</span></a>
     <a class="nav-cta" href="/contact/"<?= $path === '/contact/' ? ' aria-current="page"' : '' ?>><?= e(locale_text('Contact', 'Contact', 'Contacto')) ?> <span aria-hidden="true">&#8599;</span></a>
     <form class="language-switcher" action="<?= e($languageAction) ?>" method="get" data-language-switcher>
         <select id="site-language" name="lang" aria-label="<?= e(locale_text('Choose language', 'Choisir la langue', 'Elegir idioma')) ?>">
@@ -100,19 +122,21 @@ $languageAction = $path . ($languageQuery ? '?' . http_build_query($languageQuer
         'Learn' => [$learnIsCurrent, $learnItems],
         'Services' => [$servicesIsCurrent, $serviceItems],
         'Resources' => [$resourceIsCurrent, $resourceItems],
+        'Explore' => [$communityIsCurrent, $communityItems],
         'Academy' => [$academyIsCurrent, $academyItems],
     ] as $section => [$isCurrent, $items]): ?>
         <details class="mobile-nav-dropdown" data-nav-dropdown>
-            <summary<?= $isCurrent ? ' aria-current="page"' : '' ?>><?= e(locale_text($section, $section === 'Learn' ? 'Apprendre' : ($section === 'Services' ? 'Services' : ($section === 'Resources' ? 'Ressources' : 'Académie')), $section === 'Learn' ? 'Aprender' : ($section === 'Services' ? 'Servicios' : ($section === 'Resources' ? 'Recursos' : 'Academia')))) ?> <span aria-hidden="true">&#8964;</span></summary>
+            <summary<?= $isCurrent ? ' aria-current="page"' : '' ?>><?= e($section === 'Explore' ? 'Explore' : locale_text($section, $section === 'Learn' ? 'Apprendre' : ($section === 'Services' ? 'Services' : ($section === 'Resources' ? 'Ressources' : 'Académie')), $section === 'Learn' ? 'Aprender' : ($section === 'Services' ? 'Servicios' : ($section === 'Resources' ? 'Recursos' : 'Academia')))) ?> <span aria-hidden="true">&#8964;</span></summary>
             <div class="mobile-nav-submenu">
                 <?php foreach ($items as $href => $label): ?>
-                    <a href="<?= e($href) ?>"<?= $path === $href ? ' aria-current="page"' : '' ?>><?= e($label) ?></a>
+                    <?php $portalLink = $section === 'Academy' && $learningPortalOrigin !== '' && str_starts_with($href, $learningPortalOrigin); ?><a href="<?= e($href) ?>"<?= $portalLink ? ' target="_blank" rel="noopener noreferrer"' : '' ?><?= $path === $href ? ' aria-current="page"' : '' ?>><?= e($label) ?></a>
                 <?php endforeach; ?>
                 <?php if ($section === 'Learn'): ?><button class="mobile-submenu-finder" type="button" data-open-course-finder><?= e(locale_text('Find a course for me', 'Trouver un cours', 'Encontrar un curso')) ?></button><?php endif; ?>
             </div>
         </details>
     <?php endforeach; ?>
     <button class="mobile-finder-trigger" type="button" data-open-course-finder><?= e(locale_text('Find a course', 'Trouver un cours', 'Buscar un curso')) ?></button>
+    <a href="<?= e($learningPortalHref) ?>" target="_blank" rel="noopener noreferrer"><?= e(locale_text('Open learning platform', 'Ouvrir la plateforme', 'Abrir plataforma de aprendizaje')) ?></a>
     <a href="/contact/"<?= $path === '/contact/' ? ' aria-current="page"' : '' ?>><?= e(locale_text('Contact', 'Contact', 'Contacto')) ?></a>
     <button class="mobile-search-trigger" type="button"><?= e(locale_text('Search the site', 'Rechercher sur le site', 'Buscar en el sitio')) ?></button>
 </nav>

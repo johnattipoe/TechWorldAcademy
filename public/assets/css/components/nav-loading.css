@@ -152,11 +152,10 @@ body.page-is-loading .page-loader {
     width: 58px;
     height: 58px;
     border-radius: 18px;
-    background: var(--forest);
-    color: var(--green);
-    box-shadow: 0 12px 32px #164b432b;
-    font-size: 28px;
-    font-weight: 850;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    object-fit: contain;
 }
 
 .page-loader-card strong {

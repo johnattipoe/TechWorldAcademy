@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="graduation" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3.5 3 8.5 3 12 0v-5M22 9v7"/></symbol>
+  <symbol id="web-development" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-2-12-4 14"/></symbol>
+  <symbol id="mobile" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 5h4m-3 14h2"/></symbol>
+  <symbol id="analytics" viewBox="0 0 24 24"><path d="M3 20h18M6 16v-5m6 5V5m6 11V9"/><path d="m4 8 5-4 4 3 6-5"/></symbol>
+  <symbol id="cybersecurity" viewBox="0 0 24 24"><path d="M12 2 20 5v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></symbol>
+  <symbol id="design" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.5-3.3 1.6 1.6 0 0 1 1.3-2.7H18a3 3 0 0 0 3-3c0-5-4-9-9-9Z"/><path d="M7 10h.01M10 7h.01M15 8h.01"/></symbol>
+  <symbol id="database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="cloud" viewBox="0 0 24 24"><path d="M7 18h11a4 4 0 0 0 .5-8A6.5 6.5 0 0 0 6 8.5 4.8 4.8 0 0 0 7 18Z"/></symbol>
+  <symbol id="ai" viewBox="0 0 24 24"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M6 4l12 16M18 4 6 20"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="business" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18m-11 0v2h4v-2"/></symbol>
+  <symbol id="video-learning" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 8 6 4-6 4z"/></symbol>
+  <symbol id="certificate" viewBox="0 0 24 24"><path d="M5 3h14v14H5zM8 7h8M8 10h6"/><path d="m9 17-1 5 4-2 4 2-1-5"/></symbol>
+  <symbol id="support" viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13H3v4h4v-5H4m16 1h1v4h-4v-5h3M9 21h6"/></symbol>
+  <symbol id="python" viewBox="0 0 24 24"><path d="M12 3c-4 0-5 1.5-5 4v3h8v1H5c-2 0-3 1.5-3 5s1 5 4 5h3v-4c0-2 1-3 3-3h4c2 0 3-1 3-3V7c0-2.5-2-4-7-4Z"/><circle cx="9" cy="6.5" r=".8"/><circle cx="15" cy="17.5" r=".8"/></symbol>
+  <symbol id="html" viewBox="0 0 24 24"><path d="m4 3 1.5 17L12 22l6.5-2L20 3H4Z"/><path d="M8 8h8l-.4 3.5H8.5m.3 3.5.2 2 3 .8 3-.8.2-2"/></symbol>
+  <symbol id="javascript" viewBox="0 0 24 24"><path d="M4 3h16v18H4z"/><path d="M12 9v6c0 2-1 3-3 3m8-1c-1 1-3 1-4 0"/></symbol>
+  <symbol id="java" viewBox="0 0 24 24"><path d="M8 17c-3 0-4-1-4-2h14c0 1-2 2-5 2M6 20c3 1 9 1 12 0M9 14c-2-2 4-3 2-6m3 6c-1-2 3-3 2-5M9 5c1 1 1 2 0 3"/></symbol>
+  <symbol id="php" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6"/><path d="m5 15 2-6h3c2 0 2 1 1.5 2.5L11 15m4 0 2-6h3l-1 3h-3"/></symbol>
+  <symbol id="code-cpp" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m13 9-2-1-2 1v5l2 1 2-1m3-5v5m-2.5-2.5h5"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3Z"/></symbol>
+  <symbol id="checklist" viewBox="0 0 24 24"><path d="M9 5h11M9 12h11M9 19h11M3 5l1 1 2-2m-3 8 1 1 2-2m-3 8 1 1 2-2"/></symbol>
+  <symbol id="book-open" viewBox="0 0 24 24"><path d="M12 6c-2.5-2-5.5-2.5-9-1v14c3.5-1.5 6.5-1 9 1m0-14c2.5-2 5.5-2.5 9-1v14c-3.5-1.5-6.5-1-9 1m0-14v14"/></symbol>
+  <symbol id="lesson" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m10 8 5 3-5 3zM8 22h8m-4-4v4"/></symbol>
+  <symbol id="quiz" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h.01M12 8h4m-8 5h.01M12 13h4m-8 5h8"/></symbol>
+  <symbol id="progress" viewBox="0 0 24 24"><path d="M3 20h18M5 16v-4m5 4V7m5 9V3m5 13v-7"/><path d="m4 8 5-4 4 2 6-4"/></symbol>
+  <symbol id="instructor" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a7 7 0 0 1 14 0v2m3-14v8m-4-4h8"/></symbol>
+  <symbol id="community" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20v-1a7 7 0 0 1 14 0v1m1-5a5 5 0 0 1 5 5"/></symbol>
+  <symbol id="accessibility" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M4 8h16m-8 0v5m0 0-5 7m5-7 5 7m-5-7-4-3m4 3 4-3"/></symbol>
+  <symbol id="calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h.01m4 0h.01m4 0h.01m-8 4h.01m4 0h.01"/></symbol>
+</svg>
