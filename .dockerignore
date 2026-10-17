@@ -3,6 +3,7 @@
 .env
 .env.*
 !.env.example
+/firebase-service-account.json
 vendor
 vendor/**
 node_modules
